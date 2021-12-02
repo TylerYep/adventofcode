@@ -21,8 +21,8 @@ def get_input(year: int, day: int) -> str:
 def main() -> None:
     today = date.today()
     parser = argparse.ArgumentParser()
-    parser.add_argument("year", type=int, default=today.year)
-    parser.add_argument("day", type=int, default=today.day)
+    parser.add_argument("--year", type=int, default=today.year)
+    parser.add_argument("--day", type=int, default=today.day + 1)
     args = parser.parse_args()
 
     for _ in range(5):
@@ -36,9 +36,13 @@ def main() -> None:
     else:
         raise SystemExit("Timed out after 5 attempts")
 
-    path = Path(f"aoc/year{args.year}/day{args.day:02d}/input.txt")
+    path = Path(f"aoc/year{args.year}/day{args.day:02d}")
     path.mkdir(parents=True, exist_ok=True)
-    path.write_text(s, encoding="utf-8")
+    (path / "input.txt").write_text(s, encoding="utf-8")
+
+    for i in range(1, 3):
+        part = Path(f"aoc/year{args.year}/day01/part1.py").read_text(encoding="utf-8")
+        (path / f"part{i}.py").write_text(part, encoding="utf-8")
 
     lines = s.splitlines()
     if len(lines) > 10:

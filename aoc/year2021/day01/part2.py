@@ -6,7 +6,7 @@ from typing import Any
 def main() -> None:
     with open("./input.txt", encoding="utf-8") as f:
         lines: list[Any] = [s.split(" ") for s in f.readlines()]
-        lines = [int(z[0]) for z in lines]
+        lines = [int(a) for a, in lines]
         print(solve(lines))
 
 
